@@ -9,7 +9,15 @@ class SearchBox extends React.Component {
     
     render () {
     return (
-        <div>This is a Search Box </div>
+        <div className="search-box">
+        <input
+          name="searchTerm"
+          type="text"
+          placeholder={"Search for Projects..."}
+          value={this.props.searchTerm}
+          onChange={this.props.handleSearchChange}
+        />
+      </div>
     )
     }
 
