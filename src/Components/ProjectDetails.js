@@ -5,10 +5,12 @@ class ProjectDetails extends React.Component {
 // TO DO:
 // -Add approve functionality for approvers
 // -Add edit functionality for PMs
-// -Figure out what the issue with department and usernames is, works correctly on project cards, although that uses passed down props rather than state
 
     state = {
-        project: {}
+        project: {
+            user: {},
+            department: {}
+        }
     }
 
     componentDidMount(){
@@ -21,15 +23,16 @@ class ProjectDetails extends React.Component {
       }
 
     renderProjectDetails = () => {
-        // const department = this.state.project.department
+        console.log(this.state.project)
+        console.log(this.state.project.user)
         return (
             <div className='project-details'>
                 <h3>Project Name: {this.state.project.project_name}</h3>
                 <h4>Description: {this.state.project.description}</h4>
                 <h4>Budget: {this.state.project.budget}</h4>
                 <h4>Location ID: {this.state.project.location_id}</h4>
-                {/* <h4>Department: {department.name}</h4> */}
-                {/* <h4>Submitter: {this.state.project.user.username}</h4>  */}
+                <h4>Department: {this.state.project.department.name}</h4>
+                <h4>Submitter: {this.state.project.user.username}</h4> 
                 <h4>Submitted Date: {this.state.project.submitted_date}</h4>
                 <h4>Required Completion Date: {this.state.project.required_completion_date}</h4>
                 <h4>Approved Date: {this.state.project.approved_date}</h4>
