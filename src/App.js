@@ -9,21 +9,36 @@ import ProjectDetails from './Components/ProjectDetails'
 import {API_BASE} from './constants';
 
 class App extends React.Component {
-// TO DO:
-// -Get user's name, type and department here so it can be passed down to other components
-// -Filter project list by department for approvers, by associated project for submitters, PM view should be good as is
-
   state = {
-  projectsList: [],
-  searchTerm: ""
-}
+    projectsList: [],
+    login: {    
+      username: '',
+      password: ''
+    }, 
+    signup: {
+    }, 
+    validated: {
+      // username: '', 
+      // department: '', 
+      // usertype: '', 
+      // department_id: '', 
+      // user_id: ''
+    }
+  }
 
-componentDidMount(){
-  fetch(`${API_BASE}/projects`)
-  .then(res => res.json())
-  .then(data => {
+  componentDidMount(){
+    fetch(`${API_BASE}/projects`)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        projectsList: data
+      })
+    })
+  }
+
+  handleLoginOnChange = e => {
     this.setState({
-      projectsList: data
+      login: {...this.state.login, [e.target.name]: e.target.value}
     })
   })
 }
@@ -36,13 +51,27 @@ filterProjectsBySearchTerm = () => {
   let displayProjects = this.state.projectsList.filter(project => project.project_name.includes(this.state.searchTerm))
   return displayProjects
 }
+  }
+
+  handleSignin = (e) => {
+    e.preventDefault()
+
+    fetch('http://127.0.0.1:3001/api/v1/users')
+    .then(response => response.json())
+    .then(data => this.setState({
+      validated: { ...data.find(user => ((user.username === this.state.login.username) && (user.password === this.state.login.password)))}
+    }))
+  }
 
   render () {
+    console.log(this.state)
+    const stateProps = {...this.state}
+
     return (
     <div className="App">
       <NavBar />
-      <Switch>
-          <Route path="/login" component={LoginContainer} />
+        <Switch>
+          <Route path="/login" render={routerProps => <LoginContainer {...routerProps} stateProps={stateProps} handleLoginOnChange={this.handleLoginOnChange} handleSignin={this.handleSignin}/>} />
           <Route path="/make_request" component={MakeRequest}/>
           <Route path="/dashboard" render={routerProps => 
           <Dashboard {...routerProps} 
@@ -51,7 +80,7 @@ filterProjectsBySearchTerm = () => {
           searchTerm={this.state.searchTerm} />}
           />
           <Route path="/api/v1/projects/:id" component={ProjectDetails} />
-      </Switch>
+        </Switch>
     </div>
   )
   }
