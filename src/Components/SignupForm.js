@@ -20,7 +20,6 @@ class SignupForm extends React.Component {
         console.log(this.state)
         return (
             <div>
-                <div>This is Signup Form</div>
                 <h1>Sign up</h1>
                 <form onSubmit={e => this.props.handleCreateNewUser(e)}>
                     <label>Name
@@ -41,9 +40,9 @@ class SignupForm extends React.Component {
 
                     <label>User Type
                         <select name='user_type' onChange={e => this.props.handleSignupOnChange(e)} defaultValue='Project Manager'>
-                            <option >Project Manager</option>
-                            <option>Submitter</option>
-                            <option>Approver</option>
+                            <option value='project manager' >Project Manager</option>
+                            <option value='submitter' >Submitter</option>
+                            <option value='approver' >Approver</option>
                         </select>
                     </label>
 

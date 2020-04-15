@@ -84,7 +84,7 @@ class RequestForm extends React.Component {
 
   render () {
     return (
-        <div>This is a Project Request Form 
+        <div>
           <form onSubmit={e => this.handleSubmitRequest(e)}>
             <label>
             Project Name: 

@@ -46,7 +46,7 @@ class ProjectDetails extends React.Component {
 
     render() {
     return (
-        <div>This is a Project Details Component
+        <div>
             {this.renderProjectDetails()}
         </div>
 

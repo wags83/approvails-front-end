@@ -6,7 +6,7 @@ import LoginContainer from './Containers/LoginContainer';
 import Dashboard from './Containers/Dashboard'
 import MakeRequest from './Containers/MakeRequest'
 import ProjectDetails from './Components/ProjectDetails'
-import {API_BASE} from './constants';
+import { API_BASE } from './constants';
 
 class App extends React.Component {
     state = {
@@ -67,11 +67,16 @@ class App extends React.Component {
     .then(response => response.json())
     .then(data => this.setState({
       validated: { ...data.find(user => ((user.username === this.state.login.username) && (user.password === this.state.login.password)))}
-    })).then(() => history.push('/make_request'))
-    
-    // history.push('/make_request')
-
-    // Also you have to make a conditional render based what kind of user its logged in
+    }))
+    .then(() => {
+      switch (this.state.validated.user_type) {
+        case 'submitter':
+          history.push('/make_request')
+          break
+        default:
+          history.push('/dashboard')
+      }
+    })
   }
 
   handleCreateNewUser = e => {

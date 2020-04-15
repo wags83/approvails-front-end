@@ -2,10 +2,8 @@ import React from 'react';
 import RequestForm from '../Components/RequestForm'
 
 const MakeRequest = (props) => {
-    // console.log(props)
-    
     return (
-        <div>This is a Make Request container
+        <div>
             <RequestForm validatedUser={props.validatedUser}/>
         </div>
     )
