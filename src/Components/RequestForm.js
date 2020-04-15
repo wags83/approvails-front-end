@@ -1,25 +1,27 @@
 import React from 'react';
 import { API_BASE } from '../constants';
 
+const initialPayload = {
+  project_name: '',
+  description: '',
+  user_id: undefined,
+  budget: '',
+  submitted_date: '',
+  required_completion_date: '',
+  approved_date: '',
+  approved_by: '',
+  completed_date: '',
+  status: 'pending',
+  location_id: ''
+}
+
 class RequestForm extends React.Component {
 
   state = {
     username: "",
     department: "",
     locations: [],
-    requestPayload: {
-      project_name: '',
-      description: '', 
-      user_id: undefined, 
-      budget: '', 
-      submitted_date: '', 
-      required_completion_date: '', 
-      approved_date: '', 
-      approved_by: '', 
-      completed_date: '', 
-      status: 'pending', 
-      location_id: ''
-    }
+    requestPayload: initialPayload
   }
   
   componentDidMount() {
@@ -76,7 +78,7 @@ class RequestForm extends React.Component {
 
     fetch(`${API_BASE}/projects`, obj)
     .then(response => response.json())
-    .then(data => console.log('Success', data))
+    .then(data => console.log('Success', data)).then(() => this.setState({ requestPayload: initialPayload }))
     .catch(error => console.log('Error', error))
   }
 
