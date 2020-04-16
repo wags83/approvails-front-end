@@ -61,7 +61,7 @@ class ProjectDetails extends React.Component {
     }
 
     renderApproveButton = () => {
-        if (this.props.validatedUser.usertype === 'approver' && this.state.project.status === 'pending') {
+        if (this.props.validatedUser.user_type === 'approver' && this.state.project.status === 'pending') {
             return (
                 <button onClick={() => this.approveProject()}>Approve</button>
             )
@@ -69,7 +69,7 @@ class ProjectDetails extends React.Component {
     }
 
     renderSubmitterEditButton = () => {
-        if (this.props.validatedUser.usertype === 'submitter' && this.state.project.status === 'pending') {
+        if (this.props.validatedUser.user_type === 'submitter' && this.state.project.status === 'pending') {
             return (
                 <button onClick={() => this.setState({showEditForm : !this.state.showEditForm})}>Edit Project</button>
             )
@@ -121,7 +121,7 @@ class ProjectDetails extends React.Component {
    
     render() {
     return (
-        <div>This is a Project Details Component
+        <div>
             {this.renderProjectDetails()}
             {this.renderApproveButton()}
             {this.renderSubmitterEditButton()}

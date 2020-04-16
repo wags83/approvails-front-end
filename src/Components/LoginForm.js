@@ -2,12 +2,11 @@ import React from 'react';
 
 
 const LoginForm = (props) => {
+    let history = props.history
+
     return (
         <div>
-            {/* {console.log(props.handleSignin)} */}
-            <div>This is Login Form</div>
-
-            <form onSubmit={props.handleSignin}>
+            <form onSubmit={(e) => props.handleSignin(e, history)}>
                 <label>Username
                 <input type='text' name='username' value={props.stateProps.username} onChange={e => props.handleLoginOnChange(e)} />
                 </label>
@@ -20,7 +19,6 @@ const LoginForm = (props) => {
             </form>
         </div>
     )
-
 }
 
 export default LoginForm;

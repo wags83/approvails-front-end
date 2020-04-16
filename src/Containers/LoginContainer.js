@@ -2,8 +2,6 @@ import React from 'react';
 import LoginForm from '../Components/LoginForm'
 import SignupForm from '../Components/SignupForm'
 
-
-
 class LoginContainer extends React.Component {
     state = {
         logInForm: true
@@ -11,12 +9,12 @@ class LoginContainer extends React.Component {
 
     handleToLogIn = () => 
         <div>
-            <LoginForm handleLoginOnChange={this.props.handleLoginOnChange} stateProps={this.props.stateProps} handleSignin={this.props.handleSignin}/>
+            <LoginForm handleLoginOnChange={this.props.handleLoginOnChange} stateProps={this.props.stateProps} handleSignin={this.props.handleSignin} {...this.props}/>
         </div>
     
     hanleToSignUp = () => 
         <div>
-            <SignupForm />
+            <SignupForm stateProps={this.props.stateProps} handleSignupOnChange={this.props.handleSignupOnChange} handleCreateNewUser={this.props.handleCreateNewUser}/>
         </div>
     
     handleFormType = () => {
@@ -27,10 +25,12 @@ class LoginContainer extends React.Component {
         // console.log(this.props)
         return (
             <div>
-                <div>This is Login Container</div>
+                <h1>Sign in</h1>
                 {this.state.logInForm ? this.handleToLogIn() : this.hanleToSignUp()}
         
                 <button onClick={this.handleFormType} >Sign up</button>
+
+                
             </div>
         )
     }

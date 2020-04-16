@@ -3,8 +3,8 @@ import RequestForm from '../Components/RequestForm'
 
 const MakeRequest = (props) => {
     return (
-        <div>This is a Make Request container
-            <RequestForm />
+        <div>
+            <RequestForm validatedUser={props.validatedUser}/>
         </div>
     )
 
