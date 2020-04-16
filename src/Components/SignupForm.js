@@ -1,5 +1,7 @@
 import React from 'react';
 import { API_BASE }  from '../constants'
+import LogoImg from '../assets/LogoImg'
+import '../assets/styles.scss'
 
 
 class SignupForm extends React.Component { 
@@ -19,6 +21,31 @@ class SignupForm extends React.Component {
     render() {
         console.log(this.state)
         return (
+            // <div className="base-container" >
+            //     <div className="content">
+            //         <div className="image">
+            //             <LogoImg />
+            //         </div>
+            //         <div className="form">
+            //             <div className="header">Login</div>
+            //             <div className="form-group">
+            //                 <label htmlFor="username">Username</label>
+            //                 <input type="text" name="username" placeholder="username" />
+            //             </div>
+            //             <div className="form-group">
+            //                 <label htmlFor="password">Password</label>
+            //                 <input type="password" name="password" placeholder="password" />
+            //             </div>
+            //         </div>
+            //     </div>
+            //     <div className="footer">
+            //         <button type="button" className="btn">
+            //             Login
+            //     </button>
+            //     </div>
+            // </div>
+
+
             <div>
                 <h1>Sign up</h1>
                 <form onSubmit={e => this.props.handleCreateNewUser(e)}>

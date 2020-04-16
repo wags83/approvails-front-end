@@ -1,5 +1,6 @@
 import React from 'react';
 import LogoImg from '../assets/LogoImg'
+import '../assets/styles.scss'
 
 
 const LoginForm = (props) => {
