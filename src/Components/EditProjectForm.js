@@ -58,7 +58,7 @@ class EditProjectForm extends React.Component {
 
         })
         }
-        let id = this.props.match.params.id
+        let id = this.props.project.id
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
         // .then(result => console.log(result))
@@ -108,32 +108,8 @@ return (
       name='updatedRequiredCompletionDate' 
       value={this.state.updatedRequiredCompletionDate} 
       onChange={this.handleEditProjectChange} />
-    </label><br></br><br></br>
-    <label>
-      Username: 
-      <input 
-      type="text" 
-      name='username' 
-      value={this.props.project.user.username} 
-      readOnly />
-    </label><br></br>        
-    <label>
-      Department: 
-      <input 
-      type="text" 
-      name='department' 
-      value={this.props.project.department.name} 
-      readOnly/>
-    </label><br></br> 
-    <label>
-      Submitted Date: 
-      <input 
-      type="text" 
-      name='updatedSubmittedDate' 
-      value={this.props.project.submitted_date} 
-      readOnly />
-    </label><br></br> 
-    <input type="submit" value="Submit Request" onSubmit={(event) => this.editProject(event)}/>
+    </label><br></br>
+    <input type="submit" value="Submit Request" onClick={(event) => this.editProject(event)}/>
   </form>
     </div>
 )

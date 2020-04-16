@@ -17,6 +17,8 @@ class App extends React.Component {
     }, 
     searchTerm: "",
       validated: {
+        user_type: 'approver',
+        department_id: 1
       }, 
       signup: {
         username: '', 
@@ -55,18 +57,23 @@ class App extends React.Component {
       })
     }
 
+  updateProjectListOnEdit = (data) => {
+    let updatedProject = this.state.projectsList.find(project => project.id === data.id).index
+    console.log(updatedProject)
+    // this.setState({projectsList: data})
+    }
 
-filterProjectsByUserTypeAndSearchTerm = () => {
-  let filteredProjects = this.state.projectsList
-  if (this.state.validated.user_type === 'approver') {
-    filteredProjects = this.state.projectsList.filter(project => project.department.id === this.state.validated.department_id)
+  filterProjectsByUserTypeAndSearchTerm = () => {
+    let filteredProjects = this.state.projectsList
+    if (this.state.validated.user_type === 'approver') {
+      filteredProjects = this.state.projectsList.filter(project => project.department.id === this.state.validated.department_id)
+    }
+    else if (this.state.validated.user_type === 'submitter') {
+      filteredProjects = this.state.projectsList.filter(project => parseInt(project.user_id) === parseInt(this.state.validated.id))
+    }
+    let displayProjects = filteredProjects.filter(project => project.project_name.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
+    return displayProjects
   }
-  else if (this.state.validated.user_type === 'submitter') {
-    filteredProjects = this.state.projectsList.filter(project => parseInt(project.user_id) === parseInt(this.state.validated.id))
-  }
-  let displayProjects = filteredProjects.filter(project => project.project_name.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
-  return displayProjects
-}
   handleSearchChange = (event) => {
     this.setState({searchTerm: event.target.value})
   }
@@ -136,7 +143,8 @@ filterProjectsByUserTypeAndSearchTerm = () => {
           />
           <Route path="/api/v1/projects/:id" render={routerProps => 
           <ProjectDetails {...routerProps}
-          validatedUser={this.state.validated} />}
+          validatedUser={this.state.validated}
+          updateProjectListOnEdit={this.updateProjectListOnEdit} />}
           />
         </Switch>
     </div>

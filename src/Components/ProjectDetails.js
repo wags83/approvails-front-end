@@ -1,6 +1,7 @@
 import React from 'react';
 import { API_BASE } from '../constants'
 import EditProjectForm from '../Components/EditProjectForm';
+import PMEditProjectForm from '../Components/PMEditProjectForm'
 import CommentCard from '../Components/CommentCard';
 
 class ProjectDetails extends React.Component {
@@ -14,6 +15,7 @@ class ProjectDetails extends React.Component {
             location: {}
         },
         showEditForm: false,
+        showPMEditForm: false,
         comments: []
 
     }
@@ -76,7 +78,14 @@ class ProjectDetails extends React.Component {
         }
     }
 
+    renderPMEditButton = () => {
+        if (this.props.validatedUser.user_type === 'project manager' && (this.state.project.status === 'approved' || this.state.project.status === 'in progress') ) {
+            return (
+                <button onClick={() => this.setState({showPMEditForm : !this.state.showPMEditForm})}>PM Edit Project</button>
+            )
+        }
 
+        }
 
     getCurrentDate = () => {
         const current_date = new Date()
@@ -112,7 +121,10 @@ class ProjectDetails extends React.Component {
         console.log(id)
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
-        .then(data => this.setState({ project: data }))
+        .then(data => {this.setState({ project: data })
+        this.props.updateProjectListOnEdit(data)
+            }
+        )
     }
 
     updateStateOnEdit = (data) => {
@@ -125,8 +137,10 @@ class ProjectDetails extends React.Component {
             {this.renderProjectDetails()}
             {this.renderApproveButton()}
             {this.renderSubmitterEditButton()}
+            {this.renderPMEditButton()}
             {this.displayComments()}
             {this.state.showEditForm ? <EditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
+            {this.state.showPMEditForm ? <PMEditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
             <button onClick={() => this.props.history.goBack()}>Back</button>
         </div>
 
