@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-
 const ProjectCard = (props) => {
     const {project_name, budget, department, status, description, id, user, location} = props.project
     let history = useHistory()
