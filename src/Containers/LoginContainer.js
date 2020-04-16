@@ -30,7 +30,6 @@ class LoginContainer extends React.Component {
         
                 <button onClick={this.handleFormType} >Sign up</button>
 
-                
             </div>
         )
     }
