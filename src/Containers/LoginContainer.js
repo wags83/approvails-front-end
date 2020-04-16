@@ -29,6 +29,8 @@ class LoginContainer extends React.Component {
                 {this.state.logInForm ? this.handleToLogIn() : this.hanleToSignUp()}
         
                 <button onClick={this.handleFormType} >Sign up</button>
+
+                
             </div>
         )
     }
