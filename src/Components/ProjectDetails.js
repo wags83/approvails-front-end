@@ -118,11 +118,9 @@ class ProjectDetails extends React.Component {
         })
         }
         let id = this.props.match.params.id
-        console.log(id)
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
         .then(data => {this.setState({ project: data })
-        this.props.updateProjectListOnEdit()
             }
         )
     }

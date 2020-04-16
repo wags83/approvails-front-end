@@ -3,13 +3,16 @@ import ProjectCard from '../Components/ProjectCard'
 
 
 
-const ProjectList = (props) => {
+class ProjectList extends React.Component {
+    componentDidMount(){
+        this.props.updateProjectListOnEdit()
+    }
+    render() {
     return (
         <div>This is Project List container
             <table>
                <tbody>
                    <tr>
-                        <th>Project ID</th>
                         <th>Project Name</th>
                         <th>Description</th>
                         <th>Location</th>
@@ -19,11 +22,12 @@ const ProjectList = (props) => {
                         <th>Status</th>
                         <th>View Details</th>
                     </tr>
-                        {props.projects.map(project => <ProjectCard project={project} key={project.id}/>)}
+                        {this.props.projects.map(project => <ProjectCard project={project} key={project.id}/>)}
                 </tbody>
             </table>
         </div>
     )
+    }
 
 }
 

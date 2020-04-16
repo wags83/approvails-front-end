@@ -17,7 +17,7 @@ class App extends React.Component {
     }, 
     searchTerm: "",
       validated: {
-        // user_type: 'project manager',
+        // user_type: 'approver',
         // department_id: 1
       }, 
       signup: {
@@ -142,6 +142,7 @@ class App extends React.Component {
           <Dashboard {...routerProps} 
           projects={this.filterProjectsByUserTypeAndSearchTerm()} 
           handleSearchChange={this.handleSearchChange} 
+          updateProjectListOnEdit={this.updateProjectListOnEdit}
           searchTerm={this.state.searchTerm}
           validatedUser={this.state.validated} />}
           />

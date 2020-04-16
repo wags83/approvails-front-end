@@ -31,7 +31,6 @@ class PMEditProjectForm extends React.Component {
         .then(res => res.json())
         .then(data => {
           this.props.updateStateOnEdit(data)
-          this.props.updateProjectListOnEdit()
         })
     }
 

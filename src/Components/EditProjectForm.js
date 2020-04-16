@@ -65,7 +65,6 @@ class EditProjectForm extends React.Component {
         // .then(result => console.log(result))
         .then(data => {
             this.props.updateStateOnEdit(data)
-            this.props.updateProjectListOnEdit()
           })
     }
 
