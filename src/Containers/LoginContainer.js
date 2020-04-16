@@ -22,15 +22,14 @@ class LoginContainer extends React.Component {
     }
 
     render() {
-        // console.log(this.props)
         return (
             <div>
-                <h1>Sign in</h1>
                 {this.state.logInForm ? this.handleToLogIn() : this.hanleToSignUp()}
         
-                <button onClick={this.handleFormType} >Sign up</button>
+                <div className='base-container' id='login-container-btn'>
+                    <button onClick={this.handleFormType} className="btn">{this.state.logInForm ? 'Sign up' : 'Sign in'}</button>
+                </div>
 
-                
             </div>
         )
     }
