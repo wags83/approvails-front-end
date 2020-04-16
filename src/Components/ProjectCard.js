@@ -1,8 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+
+
 const ProjectCard = (props) => {
-    const {project_name, budget, department, status, description, id, user} = props.project
+    const {project_name, budget, department, status, description, id, user, location} = props.project
     let history = useHistory()
 
     return (
@@ -10,6 +12,7 @@ const ProjectCard = (props) => {
         <td>{id}</td>
         <td>{project_name}</td>
         <td>{description}</td>
+        <td>{location.address}</td>
         <td>{budget}</td>
         <td>{user.username}</td>
         <td>{department.name}</td>

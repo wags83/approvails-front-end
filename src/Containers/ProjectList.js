@@ -1,6 +1,8 @@
 import React from 'react';
 import ProjectCard from '../Components/ProjectCard'
 
+
+
 const ProjectList = (props) => {
     return (
         <div>This is Project List container
@@ -10,13 +12,14 @@ const ProjectList = (props) => {
                         <th>Project ID</th>
                         <th>Project Name</th>
                         <th>Description</th>
+                        <th>Location</th>
                         <th>Budget</th>
                         <th>Submitter</th>
                         <th>Department</th>
                         <th>Status</th>
                         <th>View Details</th>
                     </tr>
-                        {props.projects.map(project => <ProjectCard project={project}/>)}
+                        {props.projects.map(project => <ProjectCard project={project} key={project.id}/>)}
                 </tbody>
             </table>
         </div>

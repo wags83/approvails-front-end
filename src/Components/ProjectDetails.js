@@ -1,16 +1,21 @@
 import React from 'react';
 import { API_BASE } from '../constants'
+import EditProjectForm from '../Components/EditProjectForm';
+import CommentCard from '../Components/CommentCard';
 
 class ProjectDetails extends React.Component {
 // TO DO:
-// -Add approve functionality for approvers
 // -Add edit functionality for PMs
 
     state = {
         project: {
             user: {},
-            department: {}
-        }
+            department: {},
+            location: {}
+        },
+        showEditForm: false,
+        comments: []
+
     }
 
     componentDidMount(){
@@ -20,17 +25,29 @@ class ProjectDetails extends React.Component {
         .then(data => { 
           this.setState({ project: data })
         })
+        this.getComments()
       }
 
+    getComments = () => {
+        fetch(API_BASE + '/comments/')
+        .then(res => res.json())
+        .then(data => this.setState({ comments: data}))
+    }
+
+    displayComments = () => {
+        let commentsToDisplay = this.state.comments.filter(comment => comment.project_id === parseInt(this.props.match.params.id))
+        return (
+            commentsToDisplay.map(comment => <CommentCard key={comment.id} comment={comment}/>)
+        )
+    }
+
     renderProjectDetails = () => {
-        console.log(this.state.project)
-        console.log(this.state.project.user)
         return (
             <div className='project-details'>
                 <h3>Project Name: {this.state.project.project_name}</h3>
                 <h4>Description: {this.state.project.description}</h4>
                 <h4>Budget: {this.state.project.budget}</h4>
-                <h4>Location ID: {this.state.project.location_id}</h4>
+                <h4>Location: {this.state.project.location.address}</h4>
                 <h4>Department: {this.state.project.department.name}</h4>
                 <h4>Submitter: {this.state.project.user.username}</h4> 
                 <h4>Submitted Date: {this.state.project.submitted_date}</h4>
@@ -41,16 +58,79 @@ class ProjectDetails extends React.Component {
                 <h4>Status: {this.state.project.status}</h4>
             </div>
         )
-
     }
 
+    renderApproveButton = () => {
+        if (this.props.validatedUser.usertype === 'approver' && this.state.project.status === 'pending') {
+            return (
+                <button onClick={() => this.approveProject()}>Approve</button>
+            )
+        }
+    }
+
+    renderSubmitterEditButton = () => {
+        if (this.props.validatedUser.usertype === 'submitter' && this.state.project.status === 'pending') {
+            return (
+                <button onClick={() => this.setState({showEditForm : !this.state.showEditForm})}>Edit Project</button>
+            )
+        }
+    }
+
+
+
+    getCurrentDate = () => {
+        const current_date = new Date()
+        let month = '' + (current_date.getMonth() + 1)
+        let day = '' + current_date.getDate()
+        let year = current_date.getFullYear()
+
+        if (month.length < 2) {
+            month = '0' + month
+        }
+        if (day.length < 2) {
+            day = '0' + day
+        }
+
+        const full_date = [year, month, day].join('-');
+        return full_date
+    }
+
+    approveProject = () => {
+        const configObject = {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify ({ 
+                status: 'approved',
+                approved_date: this.getCurrentDate(),
+                approved_by: this.props.validatedUser.username
+        })
+        }
+        let id = this.props.match.params.id
+        console.log(id)
+        fetch(API_BASE + `/projects/${id}`, configObject)
+        .then(res => res.json())
+        .then(data => this.setState({ project: data }))
+    }
+
+    updateStateOnEdit = (data) => {
+        this.setState({ project: data})
+    }
+   
     render() {
     return (
         <div>This is a Project Details Component
             {this.renderProjectDetails()}
+            {this.renderApproveButton()}
+            {this.renderSubmitterEditButton()}
+            {this.displayComments()}
+            {this.state.showEditForm ? <EditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
+            <button onClick={() => this.props.history.goBack()}>Back</button>
         </div>
 
-    )
+    ) 
     }
 
 }

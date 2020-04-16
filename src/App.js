@@ -17,13 +17,14 @@ class App extends React.Component {
     }, 
     signup: {
     }, 
-    validated: {
-      // username: '', 
-      // department: '', 
-      // usertype: '', 
-      // department_id: '', 
-      // user_id: ''
-    }
+    validatedUser: {
+      username: 'user1', 
+      department: 'Sales & Trading', 
+      usertype: 'submitter', 
+      department_id: 1, 
+      user_id: 1
+    },
+    searchTerm: ""
   }
 
   componentDidMount(){
@@ -40,18 +41,23 @@ class App extends React.Component {
     this.setState({
       login: {...this.state.login, [e.target.name]: e.target.value}
     })
-  })
-}
+  }
 
 handleSearchChange = (event) => {
   this.setState({searchTerm: event.target.value})
 }
 
-filterProjectsBySearchTerm = () => {
-  let displayProjects = this.state.projectsList.filter(project => project.project_name.includes(this.state.searchTerm))
+filterProjectsByUserTypeAndSearchTerm = () => {
+  let filteredProjects = this.state.projectsList
+  if (this.state.validatedUser.usertype === 'approver') {
+    filteredProjects = this.state.projectsList.filter(project => project.department.id === this.state.validatedUser.department_id)
+  }
+  else if (this.state.validatedUser.usertype === 'submitter') {
+    filteredProjects = this.state.projectsList.filter(project => project.user_id === this.state.validatedUser.user_id)
+  }
+  let displayProjects = filteredProjects.filter(project => project.project_name.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
   return displayProjects
 }
-  }
 
   handleSignin = (e) => {
     e.preventDefault()
@@ -64,7 +70,6 @@ filterProjectsBySearchTerm = () => {
   }
 
   render () {
-    console.log(this.state)
     const stateProps = {...this.state}
 
     return (
@@ -75,11 +80,15 @@ filterProjectsBySearchTerm = () => {
           <Route path="/make_request" component={MakeRequest}/>
           <Route path="/dashboard" render={routerProps => 
           <Dashboard {...routerProps} 
-          projects={this.filterProjectsBySearchTerm()} 
+          projects={this.filterProjectsByUserTypeAndSearchTerm()} 
           handleSearchChange={this.handleSearchChange} 
-          searchTerm={this.state.searchTerm} />}
+          searchTerm={this.state.searchTerm}
+          validatedUser={this.state.validatedUser} />}
           />
-          <Route path="/api/v1/projects/:id" component={ProjectDetails} />
+          <Route path="/api/v1/projects/:id" render={routerProps => 
+          <ProjectDetails {...routerProps}
+          validatedUser={this.state.validatedUser} />}
+          />
         </Switch>
     </div>
   )
