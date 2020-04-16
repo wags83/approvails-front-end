@@ -122,7 +122,7 @@ class ProjectDetails extends React.Component {
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
         .then(data => {this.setState({ project: data })
-        this.props.updateProjectListOnEdit(data)
+        this.props.updateProjectListOnEdit()
             }
         )
     }
@@ -139,8 +139,8 @@ class ProjectDetails extends React.Component {
             {this.renderSubmitterEditButton()}
             {this.renderPMEditButton()}
             {this.displayComments()}
-            {this.state.showEditForm ? <EditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
-            {this.state.showPMEditForm ? <PMEditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
+            {this.state.showEditForm ? <EditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit} updateProjectListOnEdit={this.props.updateProjectListOnEdit}/> : null}
+            {this.state.showPMEditForm ? <PMEditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit} updateProjectListOnEdit={this.props.updateProjectListOnEdit}/> : null}
             <button onClick={() => this.props.history.goBack()}>Back</button>
         </div>
 

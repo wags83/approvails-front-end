@@ -4,7 +4,7 @@ import { API_BASE } from '../constants'
 class PMEditProjectForm extends React.Component {
      state = {  
         updatedCompletionDate: this.props.project.completed_date,
-        updatedStatus: ''
+        updatedStatus: 'in progress'
      }
 
     handlePMEditProjectChange = (event) => {
@@ -29,8 +29,10 @@ class PMEditProjectForm extends React.Component {
         let id = this.props.project.id
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
-        // .then(result => console.log(result))
-        .then(data => this.props.updateStateOnEdit(data))
+        .then(data => {
+          this.props.updateStateOnEdit(data)
+          this.props.updateProjectListOnEdit()
+        })
     }
 
 render () {

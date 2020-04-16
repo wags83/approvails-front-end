@@ -3,11 +3,11 @@ import { API_BASE } from '../constants'
 
 class EditProjectForm extends React.Component {
      state = {  
-        updatedName: '',
-        updatedBudget: '',
+        updatedName: this.props.project.project_name,
+        updatedBudget: this.props.project.budget,
         updatedLocation: '',
-        updatedDescription: '',
-        updatedRequiredCompletionDate: '',
+        updatedDescription: this.props.project.description,
+        updatedRequiredCompletionDate: this.props.required_completion_date,
         locations: []
      }
 
@@ -55,6 +55,7 @@ class EditProjectForm extends React.Component {
                 budget: this.state.updatedBudget,
                 required_completion_date: this.state.updatedRequiredCompletionDate,
                 submitted_date: this.getCurrentDate(),
+                location_id: this.state.updatedLocation
 
         })
         }
@@ -62,7 +63,10 @@ class EditProjectForm extends React.Component {
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
         // .then(result => console.log(result))
-        .then(data => this.props.updateStateOnEdit(data))
+        .then(data => {
+            this.props.updateStateOnEdit(data)
+            this.props.updateProjectListOnEdit()
+          })
     }
 
 render () {
