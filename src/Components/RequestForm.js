@@ -79,6 +79,8 @@ class RequestForm extends React.Component {
     fetch(`${API_BASE}/projects`, obj)
     .then(response => response.json())
     .then(data => console.log('Success', data)).then(() => this.setState({ requestPayload: initialPayload }))
+    .then(alert(
+      `Request submitted successfully.  Go to Dashboard to view the request's status.`))
     .catch(error => console.log('Error', error))
   }
 

@@ -17,8 +17,12 @@ class App extends React.Component {
     }, 
     searchTerm: "",
       validated: {
-        user_type: 'approver',
-        department_id: 1
+        user_type: 'project manager',
+        department_id: 1,
+        id: 2,
+        department: {
+          name: 'Sales & Trading'
+        }
       }, 
       signup: {
         username: '', 
@@ -31,6 +35,10 @@ class App extends React.Component {
     }
 
     componentDidMount(){
+      this.getProjects()
+    }
+
+    getProjects = () => {
       fetch(`${API_BASE}/projects`)
       .then(res => res.json())
       .then(data => {
@@ -58,9 +66,9 @@ class App extends React.Component {
     }
 
   updateProjectListOnEdit = (data) => {
-    let updatedProject = this.state.projectsList.find(project => project.id === data.id).index
-    console.log(updatedProject)
-    // this.setState({projectsList: data})
+      // let index = this.state.projectsList.findIndex(project => project.id === data.id)
+      // this.setState({projectsList[index]: data})
+      this.getProjects()
     }
 
   filterProjectsByUserTypeAndSearchTerm = () => {
@@ -147,6 +155,7 @@ class App extends React.Component {
           <Dashboard {...routerProps} 
           projects={this.filterProjectsByUserTypeAndSearchTerm()} 
           handleSearchChange={this.handleSearchChange} 
+          updateProjectListOnEdit={this.updateProjectListOnEdit}
           searchTerm={this.state.searchTerm}
           validatedUser={this.state.validated} />}
           />

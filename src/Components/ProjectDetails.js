@@ -3,6 +3,7 @@ import { API_BASE } from '../constants'
 import EditProjectForm from '../Components/EditProjectForm';
 import PMEditProjectForm from '../Components/PMEditProjectForm'
 import CommentCard from '../Components/CommentCard';
+import '../assets/styles.scss'
 
 class ProjectDetails extends React.Component {
 // TO DO:
@@ -45,20 +46,22 @@ class ProjectDetails extends React.Component {
 
     renderProjectDetails = () => {
         return (
-            <div className='project-details'>
+        <div  >
+            
                 <h3>Project Name: {this.state.project.project_name}</h3>
-                <h4>Description: {this.state.project.description}</h4>
-                <h4>Budget: {this.state.project.budget}</h4>
-                <h4>Location: {this.state.project.location.address}</h4>
-                <h4>Department: {this.state.project.department.name}</h4>
-                <h4>Submitter: {this.state.project.user.username}</h4> 
-                <h4>Submitted Date: {this.state.project.submitted_date}</h4>
-                <h4>Required Completion Date: {this.state.project.required_completion_date}</h4>
-                <h4>Approved Date: {this.state.project.approved_date}</h4>
-                <h4>Approved By: {this.state.project.approved_by}</h4>
-                <h4>Completed Date: {this.state.project.completed_date}</h4>
-                <h4>Status: {this.state.project.status}</h4>
+                <p>Description: {this.state.project.description}</p>
+                <p>Budget: {this.state.project.budget}</p>
+                <p>Location: {this.state.project.location.address}</p>
+                <p>Department: {this.state.project.department.name}</p>
+                <p>Submitter: {this.state.project.user.username}</p> 
+                <p>Submitted Date: {this.state.project.submitted_date}</p>
+                <p>Required Completion Date: {this.state.project.required_completion_date}</p>
+                <p>Approved Date: {this.state.project.approved_date}</p>
+                <p>Approved By: {this.state.project.approved_by}</p>
+                <p>Completed Date: {this.state.project.completed_date}</p>
+                <p>Status: {this.state.project.status}</p>
             </div>
+
         )
     }
 
@@ -118,11 +121,9 @@ class ProjectDetails extends React.Component {
         })
         }
         let id = this.props.match.params.id
-        console.log(id)
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
         .then(data => {this.setState({ project: data })
-        this.props.updateProjectListOnEdit(data)
             }
         )
     }
@@ -138,10 +139,10 @@ class ProjectDetails extends React.Component {
             {this.renderApproveButton()}
             {this.renderSubmitterEditButton()}
             {this.renderPMEditButton()}
-            {this.displayComments()}
-            {this.state.showEditForm ? <EditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
-            {this.state.showPMEditForm ? <PMEditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit}/> : null}
             <button onClick={() => this.props.history.goBack()}>Back</button>
+            {this.displayComments()}
+            {this.state.showEditForm ? <EditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit} updateProjectListOnEdit={this.props.updateProjectListOnEdit}/> : null}
+            {this.state.showPMEditForm ? <PMEditProjectForm project={this.state.project} updateStateOnEdit={this.updateStateOnEdit} updateProjectListOnEdit={this.props.updateProjectListOnEdit}/> : null}
         </div>
 
     ) 

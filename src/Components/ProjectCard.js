@@ -8,7 +8,6 @@ const ProjectCard = (props) => {
 
     return (
     <tr>
-        <td>{id}</td>
         <td>{project_name}</td>
         <td>{description}</td>
         <td>{location.address}</td>

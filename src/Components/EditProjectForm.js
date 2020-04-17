@@ -1,13 +1,14 @@
 import React from 'react';
 import { API_BASE } from '../constants'
+import '../assets/styles.scss'
 
 class EditProjectForm extends React.Component {
      state = {  
-        updatedName: '',
-        updatedBudget: '',
+        updatedName: this.props.project.project_name,
+        updatedBudget: this.props.project.budget,
         updatedLocation: '',
-        updatedDescription: '',
-        updatedRequiredCompletionDate: '',
+        updatedDescription: this.props.project.description,
+        updatedRequiredCompletionDate: this.props.required_completion_date,
         locations: []
      }
 
@@ -55,6 +56,7 @@ class EditProjectForm extends React.Component {
                 budget: this.state.updatedBudget,
                 required_completion_date: this.state.updatedRequiredCompletionDate,
                 submitted_date: this.getCurrentDate(),
+                location_id: this.state.updatedLocation
 
         })
         }
@@ -62,55 +64,63 @@ class EditProjectForm extends React.Component {
         fetch(API_BASE + `/projects/${id}`, configObject)
         .then(res => res.json())
         // .then(result => console.log(result))
-        .then(data => this.props.updateStateOnEdit(data))
+        .then(data => {
+            this.props.updateStateOnEdit(data)
+          })
     }
 
 render () {
 return (
-    <div>This is an Edit Project Form
-    <form >
-    <label>
-      Project Name: 
-      <input 
-      type="text" 
-      name='updatedName' 
-      value={this.state.updatedName} 
-      onChange={this.handleEditProjectChange} />
-    </label><br></br>
-    <label>
-      Description: 
-      <input 
-      type="text" 
-      name='updatedDescription' 
-      value={this.state.updatedDescription} 
-      onChange={this.handleEditProjectChange} />
-    </label><br></br> 
-    <label>
-      Budget: 
-      <input 
-      type="number"
-      step="0.01"
-      name='updatedBudget' 
-      value={this.state.updatedBudget} 
-      onChange={this.handleEditProjectChange}/>
-    </label><br></br>  
-    <label>Location: 
-    <select 
-        value={this.state.updatedLocation}
-        onChange={(e) => this.setState({updatedLocation: e.target.value})}>
-        {this.state.locations.map((location) => <option key={location.id} value={location.id}>{location.address}</option>)}
-    </select> 
-    </label><br></br>           
-    <label>
-      Required Completion Date: 
-      <input 
-      type="date" 
-      name='updatedRequiredCompletionDate' 
-      value={this.state.updatedRequiredCompletionDate} 
-      onChange={this.handleEditProjectChange} />
-    </label><br></br>
-    <input type="submit" value="Submit Request" onClick={(event) => this.editProject(event)}/>
-  </form>
+    <div className="left-container" >
+        <div className="content">
+            <div className="form">
+                <div className="form-group">
+            <form >
+            <label>
+            Project Name: 
+            <input 
+            type="text" 
+            name='updatedName' 
+            value={this.state.updatedName} 
+            onChange={this.handleEditProjectChange} />
+            </label><br></br>
+            <label>
+            Description: 
+            <input 
+            type="text" 
+            name='updatedDescription' 
+            value={this.state.updatedDescription} 
+            onChange={this.handleEditProjectChange} />
+            </label><br></br> 
+            <label>
+            Budget: 
+            <input 
+            type="number"
+            step="0.01"
+            name='updatedBudget' 
+            value={this.state.updatedBudget} 
+            onChange={this.handleEditProjectChange}/>
+            </label><br></br>  
+            <label>Location: 
+            <select 
+                value={this.state.updatedLocation}
+                onChange={(e) => this.setState({updatedLocation: e.target.value})}>
+                {this.state.locations.map((location) => <option key={location.id} value={location.id}>{location.address}</option>)}
+            </select> 
+            </label><br></br>           
+            <label>
+            Required Completion Date: 
+            <input 
+            type="date" 
+            name='updatedRequiredCompletionDate' 
+            value={this.state.updatedRequiredCompletionDate} 
+            onChange={this.handleEditProjectChange} />
+            </label><br></br>
+            <button className='btn' onClick={(event) => this.editProject(event)}>Submit Request</button> 
+        </form>
+    </div>
+    </div>
+    </div>
     </div>
 )
 }
@@ -118,3 +128,4 @@ return (
 }
 
 export default EditProjectForm
+
