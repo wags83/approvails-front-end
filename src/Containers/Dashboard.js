@@ -4,7 +4,7 @@ import SearchBox from '../Components/SearchBox'
 
 const Dashboard = (props) => {
     return (
-        <div>This is Dashboard Container
+        <div>
             <SearchBox 
             handleSearchChange={props.handleSearchChange}
             searchTerm={props.searchTerm}/>

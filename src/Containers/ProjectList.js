@@ -9,7 +9,7 @@ class ProjectList extends React.Component {
     }
     render() {
     return (
-        <div>This is Project List container
+        <div>
             <table>
                <tbody>
                    <tr>

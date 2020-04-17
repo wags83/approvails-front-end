@@ -17,8 +17,12 @@ class App extends React.Component {
     }, 
     searchTerm: "",
       validated: {
-        // user_type: 'approver',
-        // department_id: 1
+        user_type: 'project manager',
+        department_id: 1,
+        id: 2,
+        department: {
+          name: 'Sales & Trading'
+        }
       }, 
       signup: {
         username: '', 

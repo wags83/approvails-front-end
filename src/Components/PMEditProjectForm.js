@@ -49,7 +49,7 @@ return (
       </select>
     </label><br></br>
     <label>
-      Description: 
+      Completed Date: 
       <input 
       type="date" 
       name='updatedCompletionDate' 

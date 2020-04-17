@@ -5,8 +5,9 @@ const CommentCard = (props) => {
     
 
     return (
-    <div>
-        <h3>{user.username}: {body}</h3>
+        <div class="comment">
+            <p class="comment_title"> {user.username} </p>
+            <p class="comment_paragraph"> {body}</p>
     </div>
     )
 
