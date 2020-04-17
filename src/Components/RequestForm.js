@@ -84,65 +84,47 @@ class RequestForm extends React.Component {
 
   render () {
     return (
-        <div>
-          <form onSubmit={e => this.handleSubmitRequest(e)}>
-            <label>
-            Project Name: 
-              <input type="text" name='project_name' value={this.state.requestPayload.project_name} onChange={e => this.handleMakeRequestChange(e)} />
-            </label>
-
-            <br></br>
-
-            <label>
-            Description: 
-              <input type="text" name='description' value={this.state.requestPayload.description} onChange={e => this.handleMakeRequestChange(e)} />
-            </label>
-
-            <br></br> 
-
-            <label>
-            Budget: 
-              <input type="number" step="0.01" name='budget' value={this.state.requestPayload.budget} onChange={e => this.handleMakeRequestChange(e)}/>
-            </label>
-
-            <br></br>  
-
-            <label>Location: 
-              {/* <select  value={this.state.selectedLocation} onChange={(e) => this.setState({selectedLocation: e.target.value})}> */}
-            <select onChange={(e) => this.setState({ requestPayload: { ...this.state.requestPayload , location_id: e.target.value }})}>
-              {this.state.locations.map((location) => <option key={location.id} value={parseInt(location.id)}>{location.address}</option>)}
-              </select> 
-            </label>
-
-            <br></br>           
-            <label>
-            Required Completion Date: 
-              <input type="date" name='required_completion_date' value={this.state.requestPayload.required_completion_date} onChange={e => this.handleMakeRequestChange(e)} />
-            </label>
-            
-            <br></br><br></br>
-            
-            <label>
-              Username: {this.state.username}
-            </label>
-            
-            <br></br>        
-            
-            <label>
-              Department: {this.state.department}
-            </label>
-            
-            <br></br> 
-            
-            <label>
-            Submitted Date: 
-              <input type="text" name='submitted_date' value={this.state.requestPayload.submitted_date} readOnly />
-            </label>
-            
-            <br></br> 
-            
-            <input type="submit" value="Submit Request" />
-        </form>
+      <div className="base-container" >
+        <div className="content">
+          <form className="form" onSubmit={e => this.handleSubmitRequest(e)}>
+            <div className="header">Make a Request</div>
+            <div className="form-group">
+              <label>Project Name:</label>
+              <input type="text" name='project_name' value={this.state.requestPayload.project_name} onChange={e => this.handleMakeRequestChange(e)} placeholder="project name"/>
+            </div>
+            <div className="form-group">
+              <label>Description:</label>
+              <input type="text" name='description' value={this.state.requestPayload.description} onChange={e => this.handleMakeRequestChange(e)} placeholder="description"/>
+            </div>
+            <div className="form-group">
+              <label>Budget:</label>
+              <input type="number" step="0.01" name='budget' value={this.state.requestPayload.budget} onChange={e => this.handleMakeRequestChange(e)} placeholder="budget"/>
+            </div>
+            <div className="form-group">
+              <label>Location:</label>
+              <select onChange={(e) => this.setState({ requestPayload: { ...this.state.requestPayload , location_id: e.target.value }})}>
+               {this.state.locations.map((location) => <option key={location.id} value={parseInt(location.id)}>{location.address}</option>)}
+               </select> 
+            </div>
+            <div className="form-group">
+              <label>Required Completion Date:</label>
+               <input type="date" name='required_completion_date' value={this.state.requestPayload.required_completion_date} onChange={e => this.handleMakeRequestChange(e)} />
+            </div>
+            <div className="form-group">
+              <label>Username: {this.state.username}</label>
+            </div>
+            <div className="form-group">
+              <label>Department: {this.state.department}</label>
+            </div>
+            <div className="form-group">
+              <label>Submitted Date:</label>
+               <input type="text" name='submitted_date' value={this.state.requestPayload.submitted_date} readOnly />
+            </div>
+            <div className="footer">
+              <button type='submit' className="btn">Submit Request</button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }
