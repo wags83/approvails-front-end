@@ -12,38 +12,22 @@ const LoginForm = (props) => {
                 <div className="image">
                     <LogoImg />
                 </div>
-                <div className="form">
+                <form className="form" onSubmit={(e) => props.handleSignin(e, history)}>
                     <div className="header">Login</div>
                     <div className="form-group">
-                        <label htmlFor="username">Username</label>
-                        <input type="text" name="username" placeholder="username" />
+                        <label>Username</label>
+                        <input type='text' name='username' value={props.stateProps.username} onChange={e => props.handleLoginOnChange(e)} placeholder="username"/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name="password" placeholder="password" />
+                        <label>Password</label>
+                        <input type='password' name='password' value={props.stateProps.password} onChange={e => props.handleLoginOnChange(e)} placeholder="password"/>
                     </div>
-                </div>
-            </div>
-            <div className="footer">
-                <button type="button" className="btn">
-                    Login
-                </button>
+                    <div className="footer">
+                        <button type='submit' className="btn">Sign in</button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        // <div>
-        //     <form onSubmit={(e) => props.handleSignin(e, history)}>
-        //         <label>Username
-        //         <input type='text' name='username' value={props.stateProps.username} onChange={e => props.handleLoginOnChange(e)} />
-        //         </label>
-
-        //         <label>Password
-        //         <input type='password' name='password' value={props.stateProps.password} onChange={e => props.handleLoginOnChange(e)} />
-        //         </label>
-
-        //         <button type='submit'>Sign in</button>
-        //     </form>
-        // </div>
     )
 }
 

@@ -97,7 +97,7 @@ class App extends React.Component {
     })
   }
 
-  handleCreateNewUser = e => {
+  handleCreateNewUser = (e, history) => {
     e.preventDefault()
 
     const obj = {
@@ -115,6 +115,15 @@ class App extends React.Component {
       console.log('Success', data)
       this.setState({ validated: { data } })
     }, () => console.log(this.state.validated))
+    .then(() => {
+      switch (this.state.validated.user_type) {
+        case 'submitter':
+          history.push('/make_request')
+          break
+        default:
+          history.push('/dashboard')
+      }
+    })
     .catch(error => console.log('Error', error))
   }
 

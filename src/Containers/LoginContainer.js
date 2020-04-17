@@ -14,7 +14,7 @@ class LoginContainer extends React.Component {
     
     hanleToSignUp = () => 
         <div>
-            <SignupForm stateProps={this.props.stateProps} handleSignupOnChange={this.props.handleSignupOnChange} handleCreateNewUser={this.props.handleCreateNewUser}/>
+            <SignupForm stateProps={this.props.stateProps} handleSignupOnChange={this.props.handleSignupOnChange} handleCreateNewUser={this.props.handleCreateNewUser} {...this.props}/>
         </div>
     
     handleFormType = () => {

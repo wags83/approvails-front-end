@@ -59,6 +59,22 @@
             box-shadow: 0px 0px 12px 0.8px #3474dbb2;
           }
         }
+        select {
+            font-size: 16px;
+            margin-top: 6px;
+            min-width: 19em;
+            height: 37px;
+            // padding: 0px 10px;
+            font-family: "Open Sans", sans-serif;
+            background-color: #f3f3f3;
+            border: 0;
+            // border-radius: 4px;
+            margin-bottom: 31px;
+            &:focus {
+            outline: none;
+            box-shadow: 0px 0px 12px 0.8px #3474dbb2;
+          }
+        }
       }
     }
 }
